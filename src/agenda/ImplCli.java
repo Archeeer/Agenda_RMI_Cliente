@@ -28,6 +28,12 @@ public class ImplCli extends UnicastRemoteObject implements InterfaceCli {
 		return null;
 	}
 
+	@Override
+	public void mostrarAlerta(String infoCompromisso) {
+		System.out.println("[CLIENTE]: Alerta recebido");
+		System.out.println("[CLIENTE]: " + infoCompromisso);
+}
+
 //    public InterfaceServ getServer() {
 //        return this.referenciaServidor;
 //    }
