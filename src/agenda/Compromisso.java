@@ -1,18 +1,24 @@
 package agenda;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Compromisso  {
+public class Compromisso implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	public String Nome;
-	public String Data;
-	public int Hora;
-	public int Minuto;
-	public int Segundo;
-	
-	ArrayList<Usuario> Convidados = new ArrayList<>();
-	ArrayList<Notificacao> listaNotificacao = new ArrayList<>();
-    
+	public LocalDate Data;
+	public LocalTime Hora;
 
-    public Compromisso(String Nome, String Data, int Hora, int Minuto, int Segundo, ArrayList<Usuario> Convidados) {
+	ArrayList<Usuario> Convidados = new ArrayList<>();
+//	ArrayList<Alerta> listaNotificacao = new ArrayList<>();
+
+
+    public Compromisso(String Nome, LocalDate Data, LocalTime Hora, ArrayList<Usuario> Convidados) {
         this.Nome = Nome;
     	this.Data = Data;
         this.Hora = Hora;
@@ -27,21 +33,39 @@ public class Compromisso  {
 		Nome = nome;
 	}
 
-	public String getData() {
+	public LocalDate getData() {
 		return Data;
 	}
 
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		Data = data;
 	}
 
-	public int getHora() {
+	public LocalTime getHora() {
 		return Hora;
 	}
 
-	public void setHora(int hora) {
+	public ArrayList<Usuario> getConvidados() {
+		return Convidados;
+	}
+
+	public void setHora(LocalTime hora) {
 		Hora = hora;
 	}
+
+	@Override
+	public String toString() {
+		return  "Nome: " + this.getNome() +
+				", Data: " + this.getData() +
+				", Hora: " + this.getHora() +
+				", Convidados: ";
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+	    return this.Nome.equals(((Compromisso) arg0).Nome);
+	}
+}
 
 //	public String getNotificacao() {
 //		return Notificacao;
@@ -58,8 +82,3 @@ public class Compromisso  {
 //	public void setConvidados(byte[] convidados) {
 //		listaConvidados = convidados;
 //	}
-    
-    
-    
-
-}

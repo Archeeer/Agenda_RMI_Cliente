@@ -1,6 +1,14 @@
 package agenda;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Serializer {
@@ -38,66 +46,66 @@ public class Serializer {
 		return decoded;
 	}
 
-	static Object serializeArrayList(ArrayList<Usuario> Array) 
-	{ 
+	static Object serializeArrayList(ArrayList<Usuario> Array)
+	{
 
 		ArrayList<Usuario> decoded = new ArrayList<>();
-		try { 
-			// an OutputStream file 
-			// "namesListData" is 
-			// created 
-			FileOutputStream fos = new FileOutputStream("lista"); 
+		try {
+			// an OutputStream file
+			// "namesListData" is
+			// created
+			FileOutputStream fos = new FileOutputStream("lista");
 
-			// an ObjectOutputStream object is 
-			// created on the FileOutputStream 
-			// object 
-			ObjectOutputStream oos = new ObjectOutputStream(fos); 
+			// an ObjectOutputStream object is
+			// created on the FileOutputStream
+			// object
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-			// calling the writeObject() 
-			// method of the 
-			// ObjectOutputStream on the 
-			// OutputStream file "namesList" 
-			oos.writeObject(decoded); 
+			// calling the writeObject()
+			// method of the
+			// ObjectOutputStream on the
+			// OutputStream file "namesList"
+			oos.writeObject(decoded);
 
-			// close the ObjectOutputStream 
-			oos.close(); 
+			// close the ObjectOutputStream
+			oos.close();
 
-			// close the OutputStream file 
-			fos.close(); 
+			// close the OutputStream file
+			fos.close();
 
-			System.out.println("lista serializada"); 
-		} 
-		catch (IOException ioe) { 
-			ioe.printStackTrace(); 
+			System.out.println("lista serializada");
 		}
-		return decoded; 
-	} 
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return decoded;
+	}
 
-	static ArrayList<Usuario> deserializeArrayList(Object lista){ 
+	static ArrayList<Usuario> deserializeArrayList(Object lista){
 
 		ArrayList<Usuario> decoded = new ArrayList<>();
-		try { 
-			// an OutputStream file 
-			// "namesListData" is 
-			// created 
+		try {
+			// an OutputStream file
+			// "namesListData" is
+			// created
 			FileInputStream fis = new FileInputStream("lista");
 
-			// an ObjectOutputStream object is 
-			// created on the FileOutputStream 
-			// object 
+			// an ObjectOutputStream object is
+			// created on the FileOutputStream
+			// object
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			// calling the writeObject() 
-			// method of the 
-			// ObjectOutputStream on the 
-			// OutputStream file "namesList" 
+			// calling the writeObject()
+			// method of the
+			// ObjectOutputStream on the
+			// OutputStream file "namesList"
 			decoded = (ArrayList) ois.readObject();
 
-			// close the ObjectOutputStream 
-			ois.close(); 
+			// close the ObjectOutputStream
+			ois.close();
 
-			// close the OutputStream file 
-			fis.close(); 
+			// close the OutputStream file
+			fis.close();
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
