@@ -17,5 +17,5 @@ public interface InterfaceServ extends Remote{
     public String consultaCompromisso(LocalDate data) throws RemoteException;
     public Usuario buscarConvidado(String Nome) throws RemoteException;
 	public void criaAlerta(String linhaHora, String nomeCliente, String nomeCompromisso) throws RemoteException;
-
+	public void cancelamentoAlerta(String Nome) throws RemoteException;
 }

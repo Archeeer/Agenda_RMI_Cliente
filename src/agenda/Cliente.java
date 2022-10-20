@@ -126,10 +126,11 @@ public class Cliente {
 				break;
 			case 3:
 
-				System.out.println("[CLIENTE]: Cancelamento de Compromisso");
+				System.out.println("[CLIENTE]: Cancelamento de Alerta");
 				System.out.println("[CLIENTE]: Digite o Nome do Compromisso");
 				nomeCompromisso = scanner.nextLine();
-				referenciaServidor.cancelamentoCompromisso(nomeCompromisso);
+				nomeCompromisso += referenciaCliente.toString();
+				referenciaServidor.cancelamentoAlerta(nomeCompromisso);
 
 				break;
 			case 4:
