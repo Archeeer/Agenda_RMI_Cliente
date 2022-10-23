@@ -12,6 +12,7 @@ public class ImplCli extends UnicastRemoteObject implements InterfaceCli {
 	private static final long serialVersionUID = 1L;
 	String Nome;
 	InterfaceServ refServidor;
+	Compromisso convite;
 
 	//	InterfaceServ referenciaServidor = null;
 
@@ -30,22 +31,15 @@ public class ImplCli extends UnicastRemoteObject implements InterfaceCli {
 	@Override
 	public void mostrarConvite(Compromisso compromisso) throws RemoteException {
 
+		this.convite = compromisso;
 		System.out.println("[CLIENTE]: Convite recebido\n");
-		System.out.println(compromisso +" \n");
-		System.out.println(compromisso.Convidados + "\n");
-		System.out.println("[CLIENTE]: Gostaria de receber um Alerta?");
-		Scanner scanner = new Scanner(System.in);
-		int menuConv =  scanner.nextInt();
-		scanner.nextLine();
-
-		if (menuConv == 1) {
-
-			System.out.println("[CLIENTE]: Quanto tempo antes do Compromisso?");
-			String linhaHora = scanner.nextLine();
-			refServidor.criaAlerta(linhaHora, Nome, compromisso.Nome);
-			System.out.println("[CLIENTE]: Alerta criado");
-			menuConv = 0;
-		}
+		System.out.println(convite +" \n");
+		System.out.println(convite.Convidados + "\n");
+		System.out.println("[CLIENTE]: Gostaria de receber um Alerta? 5 para sim");
+	}
+		
+	public Compromisso getConvite() {
+		return convite;
 	}
 
 }

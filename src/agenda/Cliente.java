@@ -15,7 +15,7 @@ public class Cliente {
 
 		DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter horaFormat = DateTimeFormatter.ofPattern("HH:mm");
-		String nomeCliente = "a";
+		String nomeCliente = args[0];
 		Menu menu = new Menu();
 		boolean loop = true;
 		ArrayList<Usuario> convidadosTemp = new ArrayList<>();
@@ -23,6 +23,7 @@ public class Cliente {
 		InterfaceServ referenciaServidor = null;
 		InterfaceCli referenciaCliente = null;
 		Scanner scanner = new Scanner(System.in);
+		Compromisso convite;
 
 		try {
 
@@ -44,13 +45,13 @@ public class Cliente {
 			e.printStackTrace();
 		}
 
-        ArrayList<Usuario> e = new ArrayList<>();
+		//        ArrayList<Usuario> e = new ArrayList<>();
 
-        referenciaServidor.cadastroCompromisso(nomeCliente, "ABC", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
-        referenciaServidor.cadastroCompromisso(nomeCliente, "ACB", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
-        referenciaServidor.cadastroCompromisso(nomeCliente, "BAC", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
-        referenciaServidor.cadastroCompromisso(nomeCliente, "BCA", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
-        referenciaServidor.cadastroCompromisso(nomeCliente, "CAB", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
+		//        referenciaServidor.cadastroCompromisso(nomeCliente, "ABC", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
+		//        referenciaServidor.cadastroCompromisso(nomeCliente, "ACB", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
+		//        referenciaServidor.cadastroCompromisso(nomeCliente, "BAC", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
+		//        referenciaServidor.cadastroCompromisso(nomeCliente, "BCA", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
+		//        referenciaServidor.cadastroCompromisso(nomeCliente, "CAB", LocalDate.parse("19/10/2022", dataFormat), LocalTime.parse("20:00", horaFormat), e);
 
 		while (loop) {
 			int opcao = menu.menu();
@@ -75,6 +76,7 @@ public class Cliente {
 				System.out.println("[CLIENTE]: Adicionar Convidados ao Compromisso?\n 1 - SIM\n 2 - NÃO");
 				int menuConv = scanner.nextInt();
 				scanner.nextLine();
+				clearBuffer(scanner);
 
 
 				if (menuConv == 1) {
@@ -98,9 +100,9 @@ public class Cliente {
 					}
 				}
 
-//				System.out.println("[CLIENTE]: Chego Aqui?");
+				//				System.out.println("[CLIENTE]: Chego Aqui?");
 				referenciaServidor.cadastroCompromisso(nomeCliente, nomeCompromisso, data, hora, convidadosTemp);
-//				System.out.println("[CLIENTE]: Compromisso Cadastrado?");
+				//				System.out.println("[CLIENTE]: Compromisso Cadastrado?");
 
 				System.out.println("[CLIENTE]: Gostaria de receber um Alerta?");
 				menuConv = scanner.nextInt();
@@ -108,11 +110,11 @@ public class Cliente {
 
 				if (menuConv == 1) {
 
-				System.out.println("[CLIENTE]: Quanto tempo antes do Compromisso?");
-				linhaHora = scanner.nextLine();
-				referenciaServidor.criaAlerta(linhaHora, nomeCliente, nomeCompromisso);
-				System.out.println("[CLIENTE]: Alerta criado");
-				menuConv = 0;
+					System.out.println("[CLIENTE]: Quanto tempo antes do Compromisso?");
+					linhaHora = scanner.nextLine();
+					referenciaServidor.criaAlerta(linhaHora, nomeCliente, nomeCompromisso);
+					System.out.println("[CLIENTE]: Alerta criado");
+					menuConv = 0;
 				}
 
 				break;
@@ -143,9 +145,25 @@ public class Cliente {
 				System.out.println (referenciaServidor.consultaCompromisso(data));
 				System.out.println("[CLIENTE]: Retorno Consulta");
 				break;
+			
+			case 5:
+				
+				convite = referenciaCliente.getConvite();
+				System.out.println("[CLIENTE]: Quanto tempo antes do Compromisso?");
+				linhaHora = scanner.nextLine();
+				referenciaServidor.criaAlerta(linhaHora, nomeCliente, convite.Nome);
+				System.out.println("[CLIENTE]: Alerta criado");
+				menuConv = 0;
+
 			default:
-				System.out.println("[CLIENTE]: default What the fuck");
+				System.out.println("[CLIENTE]: Sem opção");
 			}
 		}
 	}
+
+	private static void clearBuffer(Scanner scanner) {
+		if(scanner.hasNextLine())
+		{scanner.nextLine();
+		}
+	}	
 }

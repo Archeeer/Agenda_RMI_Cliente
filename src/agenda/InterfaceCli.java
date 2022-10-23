@@ -12,5 +12,6 @@ public interface InterfaceCli extends Remote {
 //	public Notificacao atulizarNotificao(String notificacao,int Hora,int Minuto,int Segundo)throws RemoteException;
 	public void mostrarAlerta(String infoCompromisso) throws RemoteException;
 	public void mostrarConvite(Compromisso compromisso) throws RemoteException;
+	public Compromisso getConvite() throws RemoteException;
 
 }
