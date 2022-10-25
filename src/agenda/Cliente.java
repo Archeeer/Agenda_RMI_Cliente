@@ -3,6 +3,8 @@ package agenda;
 import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -37,8 +39,8 @@ public class Cliente {
 			referenciaCliente = new ImplCli(nomeCliente, referenciaServidor); //criando referencia do cliente
 
 			System.out.println("[CLIENTE]: Cadastrando Usuario no Servidor");
-			referenciaServidor.cadastroUsuario(nomeCliente, referenciaCliente); //cadastrando usuário no servidor
-
+			PublicKey temp =  referenciaServidor.cadastroUsuario(nomeCliente, referenciaCliente); //cadastrando usuário no servidor
+			referenciaCliente.setChavePublica(temp);
 			System.out.println("[CLIENTE]: Conectado");
 
 		} catch(Exception e){
@@ -76,8 +78,6 @@ public class Cliente {
 				System.out.println("[CLIENTE]: Adicionar Convidados ao Compromisso?\n 1 - SIM\n 2 - NÃO");
 				int menuConv = scanner.nextInt();
 				scanner.nextLine();
-				clearBuffer(scanner);
-
 
 				if (menuConv == 1) {
 
@@ -145,9 +145,9 @@ public class Cliente {
 				System.out.println (referenciaServidor.consultaCompromisso(data));
 				System.out.println("[CLIENTE]: Retorno Consulta");
 				break;
-			
+
 			case 5:
-				
+
 				convite = referenciaCliente.getConvite();
 				System.out.println("[CLIENTE]: Quanto tempo antes do Compromisso?");
 				linhaHora = scanner.nextLine();
@@ -160,10 +160,4 @@ public class Cliente {
 			}
 		}
 	}
-
-	private static void clearBuffer(Scanner scanner) {
-		if(scanner.hasNextLine())
-		{scanner.nextLine();
-		}
-	}	
 }
